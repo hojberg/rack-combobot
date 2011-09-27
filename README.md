@@ -1,4 +1,4 @@
-# rack-combot
+# rack-combot - ATTENTION, this stuff aint working yet :)
 
 Combines assets into single files to improve performance.
 
@@ -9,6 +9,7 @@ gem install rack-combot
 ### Rails apps
 
 In your routes.rb file add the following route
+
 ```ruby
-match 'combot', :to => RackCombot.new
+  match 'combot', :to => RackCombot.new
 ```

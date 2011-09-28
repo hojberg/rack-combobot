@@ -1,12 +1,4 @@
-source :rubygems
+source "http://rubygems.org"
 
-gem "rack"
-gem "rake"
-
-group :test do
-  gem "rack-test", :require => "rack/test"
-  gem 'minitest', :require => 'minitest/spec'
-  gem 'guard'
-  gem 'guard-minitest'
-end
-
+# Specify your gem's dependencies in rack-combot.gemspec
+gemspec

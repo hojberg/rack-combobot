@@ -1,7 +1,7 @@
 # encoding: UTF-8
 
 $:.push File.expand_path("../lib", __FILE__)
-require "rack-combot/version"
+require "rack/combot/version"
 
 Gem::Specification.new do |s|
   s.name        = "rack-combot"

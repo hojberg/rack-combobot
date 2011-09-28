@@ -24,6 +24,7 @@ module Rack
       file_names  = params.split("&")
       extention   = file_names[0].split(".").last
 
+      # TODO: create a simple key value hash with the query string as key
       combo = Combination.new(@config.root, file_names).combine
 
       [200, {"Content-Type" => MIME_TYPES[extention]}, combo]

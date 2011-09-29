@@ -27,4 +27,9 @@ describe "combing assets from query string" do
     ])
   end
 
+  it "caches assets" do
+    true
+    false
+  end
+
 end

@@ -1,4 +1,4 @@
-require 'spec_helper'
+require File.dirname(__FILE__) + '/spec_helper'
 
 describe "combing assets from query string" do
   include Rack::Test::Methods

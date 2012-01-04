@@ -1,5 +1,5 @@
 module Rack
-  class Combot
+  class Combobot
     class Config
       def initialize(root)
         @cache = []

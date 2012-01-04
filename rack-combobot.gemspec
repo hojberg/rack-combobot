@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version     = "0.0.1"
   s.authors     = ["Simon Højberg", "Christopher Meiklejohn"]
   s.email       = ["r.hackr@gmail.com", "christopher.meiklejohn@gmail.com"]
-  s.homepage    = ""
+  s.homepage    = "https://github.com/hojberg/rack-combobot"
   s.summary     = "asset combinator"
   s.description = "combines assets to server 1 file"
 

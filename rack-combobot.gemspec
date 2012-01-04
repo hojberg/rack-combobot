@@ -1,18 +1,17 @@
 # encoding: UTF-8
 
 $:.push File.expand_path("../lib", __FILE__)
-require "rack/combot/version"
 
 Gem::Specification.new do |s|
-  s.name        = "rack-combot"
-  s.version     = Rack::Combot::VERSION
+  s.name        = "rack-combobot"
+  s.version     = "0.0.1"
   s.authors     = ["Simon Højberg", "Christopher Meiklejohn"]
   s.email       = ["r.hackr@gmail.com", "christopher.meiklejohn@gmail.com"]
   s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.summary     = "asset combinator"
+  s.description = "combines assets to server 1 file"
 
-  s.rubyforge_project = "rack-combot"
+  s.rubyforge_project = "rack-combobot"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")

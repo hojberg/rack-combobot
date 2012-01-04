@@ -4,7 +4,7 @@ describe "combing assets from query string" do
   include Rack::Test::Methods
 
   before(:each) do
-    @app = Rack::Combot.configure(:root => File.dirname(__FILE__) + '/public')
+    @app = Rack::Combobot.configure(:root => File.dirname(__FILE__) + '/public')
   end
 
   it "combines javascript" do

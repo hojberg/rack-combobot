@@ -1,9 +1,9 @@
-require "rack/combot/config"
+require "rack/combobot/config"
 require "pathname"
 require 'uri'
 
 module Rack
-  class Combot
+  class Combobot
     def self.configure(*args)
       new(*args)
     end
@@ -15,7 +15,7 @@ module Rack
 
     def initialize(options = {})
       root = Pathname.new(options[:root] || Dir.pwd)
-      @config = Rack::Combot::Config.new(root)
+      @config = Rack::Combobot::Config.new(root)
     end
 
     # rack request handler

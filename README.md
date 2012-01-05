@@ -1,12 +1,12 @@
-# rack-combobot - ATTENTION, this stuff aint working yet :)
+# rack-combobot
 
 Asset combinator for rack 
 
 ## Installation
 
-gem install rack-combobot
+`gem install rack-combobot`
 
-### Rails apps
+### Usage in Rails apps
 
 In your routes.rb file add the following route
 

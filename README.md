@@ -11,5 +11,5 @@ gem install rack-combobot
 In your routes.rb file add the following route
 
 ```ruby
-  match 'combot', :to => Rack::Combobot.configure(:root => "/public")
+match '/combobot', :to => Rack::Combobot.configure(:root => RAILS_ROOT + "/public")
 ```

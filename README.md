@@ -1,4 +1,4 @@
-# rack-combobot
+# rack-combobot [![Build Status](https://secure.travis-ci.org/hojberg/rack-combobot.png)](http://travis-ci.org/hojberg/rack-combobot)
 
 Asset combinator for rack 
 

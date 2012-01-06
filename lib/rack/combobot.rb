@@ -9,7 +9,7 @@ module Rack
     end
 
     MIME_TYPES = {
-      "js"  => "css/javascript",
+      "js"  => "text/javascript",
       "css" => "text/css"
     }
 

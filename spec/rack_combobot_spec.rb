@@ -12,7 +12,7 @@ describe "combing assets from query string" do
       "QUERY_STRING" => "js1.js&js2.js"
     }).must_equal([
       200,
-      {"Content-Type" => "css/javascript"},
+      {"Content-Type" => "text/javascript"},
       "function lorem() { return \"a\"; }\nfunction ipsum() { return \"b\"; }\n"
     ])
   end

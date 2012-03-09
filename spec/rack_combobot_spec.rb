@@ -27,4 +27,24 @@ describe "combing assets from query string" do
     ])
   end
 
+  it "returns 404 when it can't find files" do
+    @app.call({
+      "QUERY_STRING" => "js3.js&js4.js"
+    }).must_equal([
+      404,
+      {'Content-Type' => 'text/html'},
+      ['File not found']
+    ])
+  end
+
+  it 'returns 404 when trying to move up from the root dir' do
+    @app.call({
+      "QUERY_STRING" => "js3.js&../../js4.js"
+    }).must_equal([
+      404,
+      {'Content-Type' => 'text/html'},
+      ['File not found']
+    ])
+  end
+
 end

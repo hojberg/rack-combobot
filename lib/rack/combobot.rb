@@ -24,23 +24,47 @@ module Rack
       file_names  = params.split("&")
       extention   = file_names[0].split(".").last
 
-      # TODO: create a simple key value hash with the query string as key
-      combo = Combination.new(@config.root, file_names).combine
+      begin
+        combo = Combination.new(@config.root, file_names).combine
+        [200, {"Content-Type" => MIME_TYPES[extention]}, [combo]]
+      rescue Combination::PathError
+        not_found
+      end
+    end
 
-      [200, {"Content-Type" => MIME_TYPES[extention]}, [combo]]
+    def not_found
+      [404, {'Content-Type' => 'text/html'}, ['File not found']]
     end
 
     class Combination
       def initialize(root, file_names)
-        @file_contents = []
+        @file_contents = combine_files(root, file_names)
+      end
 
+      def combine_files(root, file_names)
+        contents = []
         file_names.each do |file_name|
-          @file_contents << ::File.open("#{root}/#{file_name}", 'r') { |f| f.read }
+
+          raise PathError if file_name.include?('..') || file_name.include?("~")
+
+          root_prefix = ::File.expand_path(".", root) + "/"
+          file_path   = ::File.expand_path(file_name, root)
+
+          raise PathError unless file_path.start_with?(root_prefix) && ::File.exist?(file_path)
+
+          file_content = ::File.open(file_path, 'r') { |f| f.read }
+
+          contents << file_content
         end
+
+        contents
       end
 
       def combine
         @combo ||= @file_contents.join
+      end
+
+      class PathError < Exception
       end
     end
 

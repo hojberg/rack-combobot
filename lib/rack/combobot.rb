@@ -27,7 +27,7 @@ module Rack
       # TODO: create a simple key value hash with the query string as key
       combo = Combination.new(@config.root, file_names).combine
 
-      [200, {"Content-Type" => MIME_TYPES[extention]}, combo]
+      [200, {"Content-Type" => MIME_TYPES[extention]}, [combo]]
     end
 
     class Combination

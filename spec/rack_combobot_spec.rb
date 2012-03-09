@@ -22,8 +22,28 @@ describe "combing assets from query string" do
       "QUERY_STRING" => "css1.css&css2.css"
     }).must_equal([
       200,
-      {"Content-Type" => "text/css"},
+      {"ContentType" => "text/css"},
       [".lorem { background: blue; }\n#lipsum { border: 1px solid red }\n"]
+    ])
+  end
+
+  it "returns 404 when it can't find files" do
+    @app.call({
+      "QUERY_STRING" => "js3.js&js4.js"
+    }).must_equal([
+      404,
+      {'Content-Type' => 'text/html'},
+      ['File not found']
+    ])
+  end
+
+  it 'returns 404 when trying to move up from the root dir' do
+    @app.call({
+      "QUERY_STRING" => "js3.js&../../js4.js"
+    }).must_equal([
+      404,
+      {'Content-Type' => 'text/html'},
+      ['File not found']
     ])
   end
 

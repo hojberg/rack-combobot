@@ -1,6 +1,6 @@
 require "rack/combobot/config"
 require "pathname"
-require 'uri'
+require "uri"
 
 module Rack
   class Combobot
@@ -41,9 +41,8 @@ module Rack
         @file_contents = combine_files(root, file_names)
       end
 
-      def combine_files(root, file_names)
-        contents = []
-        file_names.each do |file_name|
+      def combine_files(root, file_names = [])
+        file_names.map do |file_name|
 
           raise PathError if file_name.include?('..') || file_name.include?("~")
 
@@ -53,20 +52,14 @@ module Rack
           raise PathError unless file_path.start_with?(root_prefix) && ::File.exist?(file_path)
 
           file_content = ::File.open(file_path, 'r') { |f| f.read }
-
-          contents << file_content
         end
-
-        contents
       end
 
       def combine
         @combo ||= @file_contents.join
       end
 
-      class PathError < Exception
-      end
+      class PathError < ArgumentError; end
     end
-
   end
 end

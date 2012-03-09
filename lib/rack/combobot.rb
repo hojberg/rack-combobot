@@ -47,12 +47,12 @@ module Rack
 
           raise PathError if file_name.include?('..') || file_name.include?("~")
 
-          root_prefix = File.expand_path(".", root) + "/"
-          file_path   = File.expand_path(file_name, root)
+          root_prefix = ::File.expand_path(".", root) + "/"
+          file_path   = ::File.expand_path(file_name, root)
 
-          raise PathError unless file_path.start_with?(root_prefix) && File.exist?(file_path)
+          raise PathError unless file_path.start_with?(root_prefix) && ::File.exist?(file_path)
 
-          file_content = ::File.open("#{root}/#{file_path}", 'r') { |f| f.read }
+          file_content = ::File.open(file_path, 'r') { |f| f.read }
 
           contents << file_content
         end

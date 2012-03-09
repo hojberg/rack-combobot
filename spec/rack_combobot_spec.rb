@@ -13,7 +13,7 @@ describe "combing assets from query string" do
     }).must_equal([
       200,
       {"Content-Type" => "text/javascript"},
-      "function lorem() { return \"a\"; }\nfunction ipsum() { return \"b\"; }\n"
+      ["function lorem() { return \"a\"; }\nfunction ipsum() { return \"b\"; }\n"]
     ])
   end
 
@@ -23,7 +23,7 @@ describe "combing assets from query string" do
     }).must_equal([
       200,
       {"Content-Type" => "text/css"},
-      ".lorem { background: blue; }\n#lipsum { border: 1px solid red }\n"
+      [".lorem { background: blue; }\n#lipsum { border: 1px solid red }\n"]
     ])
   end
 

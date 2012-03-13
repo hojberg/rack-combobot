@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 require "rack/combobot/config"
 require "pathname"
 require "uri"
@@ -22,11 +24,14 @@ module Rack
     def call(env)
       params      = env["QUERY_STRING"]
       file_names  = params.split("&")
-      extention   = file_names[0].split(".").last
+
+      return not_found if file_names.empty?
+
+      extension   = file_names[0].split(".").last
 
       begin
         combo = Combination.new(@config.root, file_names).combine
-        [200, {"Content-Type" => MIME_TYPES[extention]}, [combo]]
+        [200, {"Content-Type" => MIME_TYPES[extension]}, [combo]]
       rescue Combination::PathError
         not_found
       end

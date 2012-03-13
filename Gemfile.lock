@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rack-combobot (0.0.2)
+    rack-combobot (0.0.3)
       rack
       rake
 
@@ -12,7 +12,7 @@ GEM
     guard (0.10.0)
       ffi (>= 0.5.0)
       thor (~> 0.14.6)
-    guard-minitest (0.4.0)
+    guard-minitest (0.5.0)
       guard (~> 0.4)
     minitest (2.10.0)
     rack (1.4.0)

@@ -1,4 +1,6 @@
 require 'rack'
 require './lib/rack-combobot'
 
-run Rack::Combobot.configure :root => 'spec/public'
+use Rack::Combobot, :root => 'spec/public'
+
+run Proc.new {|env| [200, {"Content-Type" => "text/html"}, ["Dummy App"]] }

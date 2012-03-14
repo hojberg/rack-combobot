@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rack-combobot (0.1.0)
+    rack-combobot (0.3.0)
       rack
       rake
 

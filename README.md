@@ -6,10 +6,21 @@ Asset combinator for rack
 
 `gem install rack-combobot`
 
-### Usage in Rails apps
-
-In your routes.rb file add the following route
+### Usage in Rack apps (config.ru)
 
 ```ruby
-match '/combobot', :to => Rack::Combobot.configure(:root => RAILS_ROOT + "/public")
+require 'rack'
+require 'rack-combobot'
+require 'my-app'
+
+use Rack::Combobot, :root => '/public'
+run MyApp
+```
+
+### Usage in Rails apps
+
+In your config/application.rb
+
+```ruby
+config.middleware.use 'Rack::Combobot', :root => "#{Rails.root}/public"
 ```

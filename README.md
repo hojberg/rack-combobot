@@ -6,6 +6,10 @@ Asset combinator for rack
 
 `gem install rack-combobot`
 
+## Path
+
+Point your frontend to `/combobot?script1.js&script2.js` to get script1.js and script2.js combined.
+
 ### Usage in Rack apps (config.ru)
 
 ```ruby
@@ -24,3 +28,13 @@ In your config/application.rb
 ```ruby
 config.middleware.use 'Rack::Combobot', :root => "#{Rails.root}/public"
 ```
+
+### Expires header
+
+Add expires header by like so
+
+```ruby
+config.middleware.use 'Rack::Combobot', :root => "#{Rails.root}/public", :expires => Time.gm(2020)
+```
+
+To bust the cache, simple add a unique string to your request like so `/combobot/BUSTINGSRING?script1.js&script2.js`.

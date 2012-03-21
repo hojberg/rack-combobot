@@ -8,6 +8,8 @@ require "uri"
 module Rack
   class Combobot
 
+    attr_reader :config
+
     MIME_TYPES = {
       "js"  => "text/javascript",
       "css" => "text/css"
@@ -17,12 +19,13 @@ module Rack
       @app = app
 
       root = Pathname.new(options[:root] || Dir.pwd)
-      @config = Rack::Combobot::Config.new(root)
+      expires = options[:expires]
+      @config = Rack::Combobot::Config.new(root, expires)
     end
 
     # rack request handler
     def call(env)
-      if Rack::Request.new(env).path == '/combobot'
+      if Rack::Request.new(env).path =~ /^\/combobot/
         combine(env)
       else
         @app.call(env)
@@ -35,14 +38,25 @@ module Rack
 
       return not_found if file_names.empty?
 
-      extension   = file_names[0].split(".").last
+      extension = file_names[0].split(".").last
+      headers   = create_headers(extension)
 
       begin
         combo = Combination.new(@config.root, file_names).combine
-        [200, {"Content-Type" => MIME_TYPES[extension]}, [combo]]
+        [200, headers, [combo]]
       rescue Combination::PathError
         not_found
       end
+    end
+
+    def create_headers(extension)
+      headers = {"Content-Type" => MIME_TYPES[extension]}
+
+      if @config.expires
+        headers['Expires'] = @config.expires.httpdate
+      end
+
+      headers
     end
 
     def not_found

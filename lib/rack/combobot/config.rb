@@ -1,18 +1,13 @@
 module Rack
   class Combobot
     class Config
-      def initialize(root)
-        @cache = []
+      attr_accessor :root, :expires
+
+      def initialize(root, expires = nil)
         @root = root
+        @expires = expires
       end
 
-      def cache(*names)
-        @cache.concat(names)
-      end
-      
-      def root
-        @root
-      end
     end
   end
 end

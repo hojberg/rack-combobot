@@ -21,6 +21,8 @@ describe Rack::Combobot do
   # response helpers
   let(:combobot_js_response)    { [200, {"Content-Type" => "text/javascript"}, ["function lorem() { return \"a\"; }\nfunction ipsum() { return \"b\"; }\n"]] }
   let(:expires_js_response)     { [200, {"Content-Type" => "text/javascript", 'Expires' => 'Wed, 01 Jan 2020 00:00:00 GMT'}, ["function lorem() { return \"a\"; }\nfunction ipsum() { return \"b\"; }\n"]] }
+  let(:cache_control_js_response) { [200, {"Content-Type" => "text/javascript", 'Cache-Control' => 'public'}, ["function lorem() { return \"a\"; }\nfunction ipsum() { return \"b\"; }\n"]] }
+  let(:expires_and_cache_control_js_response) { [200, {"Content-Type" => "text/javascript", 'Expires' => 'Wed, 01 Jan 2020 00:00:00 GMT', 'Cache-Control' => 'public'}, ["function lorem() { return \"a\"; }\nfunction ipsum() { return \"b\"; }\n"]] }
   let(:combobot_css_response)   { [200, {"Content-Type" => "text/css"}, [".lorem { background: blue; }\n#lipsum { border: 1px solid red }\n"]] }
   let(:combobot_404_response)   { [404, {'Content-Type' => 'text/html'}, ['File not found']] }
 
@@ -55,6 +57,17 @@ describe Rack::Combobot do
     it 'adds expires headers' do
       @app.config.expires = Time.gm(2020)
       @app.call(combobot_js_request).must_equal(expires_js_response)
+    end
+
+    it 'adds cache control headers' do
+      @app.config.cache_control = 'public'
+      @app.call(combobot_js_request).must_equal(cache_control_js_response)
+    end
+
+    it 'adds both expires and cache control headers' do
+      @app.config.expires = Time.gm(2020)
+      @app.config.cache_control = 'public'
+      @app.call(combobot_js_request).must_equal(expires_and_cache_control_js_response)
     end
 
     it 'allows for versioning' do

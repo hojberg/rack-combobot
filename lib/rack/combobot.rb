@@ -18,9 +18,8 @@ module Rack
     def initialize(app, options = {})
       @app = app
 
-      root = Pathname.new(options[:root] || Dir.pwd)
-      expires = options[:expires]
-      @config = Rack::Combobot::Config.new(root, expires)
+      options[:root] = Pathname.new(options[:root] || Dir.pwd)
+      @config = Rack::Combobot::Config.new(options)
     end
 
     # rack request handler
@@ -54,6 +53,10 @@ module Rack
 
       if @config.expires
         headers['Expires'] = @config.expires.httpdate
+      end
+      
+      if @config.cache_control
+        headers['Cache-Control'] = @config.cache_control
       end
 
       headers

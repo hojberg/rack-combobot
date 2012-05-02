@@ -12,7 +12,9 @@ describe Rack::Combobot do
   end
 
   # request helpers
-  let(:combobot_request)        { { 'PATH_INFO' => '/combobot' } }
+  let(:combobot_request)        { { 'PATH_INFO' => '/combobot' }                                      }
+  let(:no_querystring_request)  { { 'PATH_INFO' => '/combobot/&js1.js&js2.js' }                       }
+  let(:no_querystring_request_with_slash)  { { 'PATH_INFO' => '/combobot/cachebuster/&subdir/js1.js&subdir/js2.js' } }
   let(:combobot_js_request)     { combobot_request.merge({ "QUERY_STRING" => "js1.js&js2.js" })       }
   let(:combobot_css_request)    { combobot_request.merge({ "QUERY_STRING" => "css1.css&css2.css" })   }
   let(:combobot_404_request)    { combobot_request.merge({ "QUERY_STRING" => "js3.js&js4.js" })       }
@@ -39,6 +41,16 @@ describe Rack::Combobot do
 
     it "combines css" do
       @app.call(combobot_css_request).must_equal(combobot_css_response)
+    end
+
+    describe 'without query string' do
+      it "combines javascript" do
+        @app.call(no_querystring_request).must_equal(combobot_js_response)
+      end
+
+      it 'combines without / in file names' do
+        @app.call(no_querystring_request_with_slash).must_equal(combobot_js_response)
+      end
     end
   end
 

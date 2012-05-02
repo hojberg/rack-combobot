@@ -31,10 +31,14 @@ config.middleware.use 'Rack::Combobot', :root => "#{Rails.root}/public"
 
 ### Expires header
 
-Add expires header by like so
+Add expires header
 
 ```ruby
 config.middleware.use 'Rack::Combobot', :root => "#{Rails.root}/public", :expires => Time.gm(2020)
 ```
 
 To bust the cache, simple add a unique string to your request like so `/combobot/BUSTINGSRING?script1.js&script2.js`.
+
+### Without query string
+
+If you environment doesn't allow having the file names in the query string (Like on CloudFront). Combobot will accept the file names as part of the url, but they have to start with `&`.

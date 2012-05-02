@@ -4,7 +4,7 @@ $:.push File.expand_path("../lib", __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = "rack-combobot"
-  s.version     = "0.2.1"
+  s.version     = "0.2.2"
   s.authors     = ["Simon Højberg", "Christopher Meiklejohn"]
   s.email       = ["r.hackr@gmail.com", "christopher.meiklejohn@gmail.com"]
   s.homepage    = "https://github.com/hojberg/rack-combobot"

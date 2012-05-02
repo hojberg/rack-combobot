@@ -31,7 +31,7 @@ config.middleware.use 'Rack::Combobot', :root => "#{Rails.root}/public"
 
 ### Expires header
 
-Add expires header by like so
+Add expires header
 
 ```ruby
 config.middleware.use 'Rack::Combobot', :root => "#{Rails.root}/public", :expires => Time.gm(2020)

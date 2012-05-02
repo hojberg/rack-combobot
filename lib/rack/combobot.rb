@@ -24,16 +24,17 @@ module Rack
 
     # rack request handler
     def call(env)
-      if Rack::Request.new(env).path =~ /^\/combobot/
-        combine(env)
+      request = Rack::Request.new(env)
+
+      if request.path =~ /^\/combobot/
+        combine(request)
       else
         @app.call(env)
       end
     end
 
-    def combine(env)
-      params      = env["QUERY_STRING"]
-      file_names  = params.split("&")
+    def combine(request)
+      file_names = extract_file_names_from_request(request)
 
       return not_found if file_names.empty?
 
@@ -46,6 +47,20 @@ module Rack
       rescue Combination::PathError
         not_found
       end
+    end
+
+    def extract_file_names_from_request(request)
+      path = request.path
+      file_names = request.query_string
+
+      if file_names == '' && path =~ /.js|.css/
+        file_names = path.split('&')
+        file_names.slice!(0)
+      else
+        file_names = file_names.split("&")
+      end
+
+      file_names
     end
 
     def create_headers(extension)
